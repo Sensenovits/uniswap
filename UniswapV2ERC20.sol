@@ -2,7 +2,7 @@
 
 pragma solidity =0.6.12;
 
-import 'https://github.com/Sensenovits/uniswap/blob/libraries/SafeMath.sol';
+
 
 contract UniswapV2ERC20 {
     using SafeMathUniswap for uint;
@@ -37,7 +37,19 @@ contract UniswapV2ERC20 {
             )
         );
     }
+library SafeMathUniswap {
+    function add(uint x, uint y) internal pure returns (uint z) {
+        require((z = x + y) >= x, 'ds-math-add-overflow');
+    }
 
+    function sub(uint x, uint y) internal pure returns (uint z) {
+        require((z = x - y) <= x, 'ds-math-sub-underflow');
+    }
+
+    function mul(uint x, uint y) internal pure returns (uint z) {
+        require(y == 0 || (z = x * y) / y == x, 'ds-math-mul-overflow');
+    }
+}
     function _mint(address to, uint value) internal {
         totalSupply = totalSupply.add(value);
         balanceOf[to] = balanceOf[to].add(value);
